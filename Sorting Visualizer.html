@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting Algorithm Visualization</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        canvas {
+            margin-top: 20px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bubble Sort Visualization</h1>
+    <button id="startBtn">Start Sorting</button>
+    <canvas id="sortingCanvas" width="400" height="200"></canvas>
+    <script>
+        const canvas = document.getElementById('sortingCanvas');
+        const ctx = canvas.getContext('2d');
+        const startBtn = document.getElementById('startBtn');
+        let data = [4, 2, 7, 1, 3, 5, 6];
+
+        function drawData(arr) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const barWidth = 30;
+            const barSpacing = 10;
+
+            arr.forEach((value, index) => {
+                const x = index * (barWidth + barSpacing);
+                const height = value * 20;
+                ctx.fillStyle = '#007bff';
+                ctx.fillRect(x, canvas.height - height, barWidth, height);
+            });
+        }
+
+        function bubbleSort() {
+            let n = data.length;
+            let swapped;
+            do {
+                swapped = false;
+                for (let i = 1; i < n; i++) {
+                    if (data[i - 1] > data[i]) {
+                        // Swap elements
+                        let temp = data[i - 1];
+                        data[i - 1] = data[i];
+                        data[i] = temp;
+                        swapped = true;
+                        drawData(data);
+                    }
+                }
+            } while (swapped);
+        }
+
+        startBtn.addEventListener('click', () => {
+            bubbleSort();
+        });
+
+        drawData(data);
+    </script>
+</body>
+</html>
